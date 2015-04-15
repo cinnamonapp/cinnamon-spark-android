@@ -1,17 +1,22 @@
-package com.cinnamon;
+package com.cinnamon.controllers;
 
 import android.app.Activity;
+import android.app.ListActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.cinnamon.R;
 
-public class Community extends Activity {
+
+public class Community extends ListActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_community);
+
+
     }
 
 
