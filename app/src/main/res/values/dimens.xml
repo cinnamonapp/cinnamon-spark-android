@@ -3,4 +3,8 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="generic_margin">5dp</dimen>
+
+    <!-- Dimension for 'community list element' layout -->
+    <dimen name="cle_user_image_dimension">40dp</dimen>
+    <dimen name="cle_meal_image_min_height">350dp</dimen>
 </resources>

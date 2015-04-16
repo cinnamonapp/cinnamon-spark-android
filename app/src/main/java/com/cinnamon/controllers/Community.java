@@ -3,20 +3,30 @@ package com.cinnamon.controllers;
 import android.app.Activity;
 import android.app.ListActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ListView;
 
 import com.cinnamon.R;
+import com.cinnamon.adapters.CommunityAdapters;
+import com.cinnamon.lib.ApiResponse;
+import com.cinnamon.models.Meal;
+
+import java.util.ArrayList;
 
 
 public class Community extends ListActivity {
+    private static final String TAG = "CommunityActivity";
+
+    private ListView        mLstMeal;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_community);
 
-
+        setComponents();
     }
 
 
@@ -37,5 +47,27 @@ public class Community extends ListActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void setComponents() {
+        mLstMeal = (ListView) findViewById(android.R.id.list);
+
+        loadMeals();
+    }
+
+    private void loadMeals() {
+        Meal.index(this, new ApiResponse.Listener<Meal[]>() {
+            @Override
+            public void onSuccess(Meal[] meals) {
+                CommunityAdapters adapter = new CommunityAdapters(Community.this, meals);
+
+                setListAdapter(adapter);
+            }
+
+            @Override
+            public void onErrorResponse(Exception error) {
+                Log.e(TAG, "Meal index error: " + error.getMessage());
+            }
+        });
     }
 }

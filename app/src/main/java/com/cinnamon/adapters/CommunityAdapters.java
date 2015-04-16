@@ -10,6 +10,9 @@ import android.widget.TextView;
 
 import com.cinnamon.R;
 import com.cinnamon.models.Meal;
+import com.squareup.picasso.Picasso;
+
+import java.text.SimpleDateFormat;
 
 public class CommunityAdapters extends BaseAdapter {
     private Context mContext;
@@ -39,13 +42,14 @@ public class CommunityAdapters extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder holder;
 
-        if (convertView == null) {
+        if (convertView == null || convertView.getTag() == null) {
             convertView = LayoutInflater.from(mContext).inflate(R.layout.community_list_element, null);
             holder = new ViewHolder();
 
-//            holder.iconImageView = (ImageView) convertView.findViewById(R.id.iconImageView);
-//            holder.mealDescription = (TextView) convertView.findViewById(R.id.temperatureLabel);
-//            holder.dayLabel = (TextView) convertView.findViewById(R.id.dayNameLabel);
+            holder.mealImage        = (ImageView) convertView.findViewById(R.id.cle_meal_image);
+            holder.userImage        = (ImageView) convertView.findViewById(R.id.cle_meal_user_image);
+            holder.mealDescription  = (TextView) convertView.findViewById(R.id.cle_meal_description);
+            holder.mealCreatedAt    = (TextView) convertView.findViewById(R.id.cle_meal_created_at);
 
             convertView.setTag(holder);
         }
@@ -55,18 +59,23 @@ public class CommunityAdapters extends BaseAdapter {
 
         Meal meal = mMeals[position];
 
-//        holder.iconImageView.setImageResource(day.getIconId());
         holder.mealDescription.setText(meal.getDescription());
-        holder.mealCreatedAt.setText(meal.getCreatedAt().toString());
+
+        holder.mealCreatedAt.setText((new SimpleDateFormat("yyyy-MM-dd")).format(meal.getCreatedAt()));
+
+
+        Picasso.with(mContext).load(meal.getImageUrl()).into(holder.mealImage);
+
+        Picasso.with(mContext).load(meal.getUserImageUrl(Meal.UserImageDimensions.NANO)).into(holder.userImage);
 
         return convertView;
     }
 
     private static class ViewHolder {
-        ImageView userImage;
-        TextView mealDescription;
-        TextView mealCreatedAt;
-        ImageView mealImage;
+        ImageView   userImage;
+        TextView    mealDescription;
+        TextView    mealCreatedAt;
+        ImageView   mealImage;
     }
 }
 
