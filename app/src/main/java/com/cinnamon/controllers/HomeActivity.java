@@ -16,21 +16,12 @@ public class HomeActivity extends Activity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-    }
 
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        if (savedInstanceState == null) {
+            getFragmentManager().beginTransaction()
+                    .add(R.id.home_activity_main_frame, new CommunityFragment())
+                    .commit();
         }
-
-        return super.onOptionsItemSelected(item);
     }
+
 }

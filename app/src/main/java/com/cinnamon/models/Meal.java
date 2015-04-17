@@ -94,7 +94,7 @@ public class Meal {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
-                Log.e(TAG, volleyError.getMessage());
+                volleyError.printStackTrace();
             }
         });
 
